@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "processor"
+version = "0.1.0"
+description = ""
+authors = ["Le-BlitzZz"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+pandas = ">=2.2.3,<3.0.0"
+scikit-learn = "^1.6.1"
+pika = "^1.3.2"
+
+[tool.poetry.scripts]
+processor = "processor.main:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

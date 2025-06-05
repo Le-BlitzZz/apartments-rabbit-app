@@ -1,0 +1,41 @@
+services:
+  dataserver:
+    build: .
+    depends_on:
+      - mariadb
+    ports:
+    - "8080:8080"
+    working_dir: "/go/src/github.com/Le-BlitzZz/apartments-rabbit-app/dataserver"
+    volumes:
+      - "./:/go/src/github.com/Le-BlitzZz/apartments-rabbit-app/dataserver"
+      - "go-mod:/go/pkg/mod"
+    networks:
+      - apartments-network
+      
+  mariadb:
+    image: mariadb:11
+    command: --port=4001 --innodb-strict-mode=1 --innodb-buffer-pool-size=256M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
+    expose:
+      - "4001"
+    ports:
+      - "4001:4001"
+    volumes:
+      - "mariadb:/var/lib/mysql"
+    environment:
+      MARIADB_DATABASE: "apartments"
+      MARIADB_USER: "apartments"
+      MARIADB_PASSWORD: "apartments"
+      MARIADB_ROOT_PASSWORD: "apartments"
+    networks:
+      - apartments-network
+
+volumes:
+  go-mod:
+    driver: local
+  mariadb:
+    driver: local
+
+networks:
+  apartments-network:
+    external: true
+    name: apartments-network

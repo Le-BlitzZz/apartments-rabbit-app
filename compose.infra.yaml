@@ -1,0 +1,28 @@
+name: apartments-infra
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: apartments-rabbitmq
+    ports:
+      - "15672:15672"  # RabbitMQ management UI
+      - "5672:5672"    # RabbitMQ AMQP protocol
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+      - ./configs/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+    environment:
+      RABBITMQ_DEFAULT_USER: apartments
+      RABBITMQ_DEFAULT_PASS: apartments
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: >
+        -rabbitmq_management load_definitions "/etc/rabbitmq/definitions.json"
+    networks:
+      - apartments-network
+
+networks:
+  apartments-network:
+    name: apartments-network
+    driver: bridge
+
+volumes:
+  rabbitmq:
+    name: apartments-rabbitmq

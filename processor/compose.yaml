@@ -1,0 +1,13 @@
+services:
+  processor:
+    build: .
+    working_dir: "/processor"
+    volumes:
+      - "./:/processor"
+    networks:
+      - apartments-network
+
+networks:
+  apartments-network:
+    external: true
+    name: apartments-network

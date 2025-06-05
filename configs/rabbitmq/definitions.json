@@ -1,0 +1,100 @@
+{
+    "rabbit_version": "3.13.0",
+    "product_name": "apartments-pipeline",
+    "product_version": "0.1.0",
+  
+    "users": [
+      {
+        "name": "apartments",
+        "password": "apartments",
+        "tags": "administrator"
+      }
+    ],
+
+    "permissions": [
+      {
+          "user": "apartments",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+      }
+    ],
+
+    "vhosts": [
+      { "name": "/" }
+    ],
+  
+    "exchanges": [
+      {
+        "name": "raw_exchange",
+        "vhost": "/",
+        "type": "fanout",
+        "durable": true,
+        "auto_delete": false,
+        "internal": false,
+        "arguments": {}
+      },
+      {
+        "name": "transformed_exchange",
+        "vhost": "/",
+        "type": "fanout",
+        "durable": true,
+        "auto_delete": false,
+        "internal": false,
+        "arguments": {}
+      }
+    ],
+  
+    "queues": [
+      {
+        "name": "processor_raw_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+      },
+      {
+        "name": "uploader_raw_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+      },
+      {
+        "name": "uploader_transformed_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+      }
+    ],
+  
+    "bindings": [
+      {
+        "source": "raw_exchange",
+        "vhost": "/",
+        "destination": "processor_raw_queue",
+        "destination_type": "queue",
+        "routing_key": "",
+        "arguments": {}
+      },
+      {
+        "source": "raw_exchange",
+        "vhost": "/",
+        "destination": "uploader_raw_queue",
+        "destination_type": "queue",
+        "routing_key": "",
+        "arguments": {}
+      },
+      {
+        "source": "transformed_exchange",
+        "vhost": "/",
+        "destination": "uploader_transformed_queue",
+        "destination_type": "queue",
+        "routing_key": "",
+        "arguments": {}
+      }
+    ]
+  }
+  

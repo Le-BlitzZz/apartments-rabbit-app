@@ -1,0 +1,13 @@
+services:
+  trainer:
+    build: .
+    working_dir: "/trainer"
+    volumes:
+      - "./:/trainer"
+    networks:
+      - apartments-network
+
+networks:
+  apartments-network:
+    external: true
+    name: apartments-network

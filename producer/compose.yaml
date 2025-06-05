@@ -1,0 +1,19 @@
+services:
+  producer:
+    build: .
+    working_dir: "/go/src/github.com/Le-BlitzZz/apartments-rabbit-app/producer"
+    volumes:
+      - "./:/go/src/github.com/Le-BlitzZz/apartments-rabbit-app/producer"
+      - "../data/apartments.csv:/go/src/github.com/Le-BlitzZz/apartments-rabbit-app/producer/data/apartments.csv"
+      - "go-mod:/go/pkg/mod"
+    networks:
+      - apartments-network
+
+volumes:
+  go-mod:
+    driver: local
+
+networks:
+  apartments-network:
+    external: true
+    name: apartments-network

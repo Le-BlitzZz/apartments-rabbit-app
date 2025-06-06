@@ -1,4 +1,3 @@
-// uploader/run.go
 package uploader
 
 import (

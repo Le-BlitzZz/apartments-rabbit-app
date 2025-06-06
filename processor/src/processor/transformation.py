@@ -48,8 +48,6 @@ class Preprocessor(BaseEstimator, TransformerMixin):
     def transform(self, X):
         X = X.copy()
         X = X.drop(columns=self.drop_cols)
-        X = X[~X.Type.isnull()]
-        X = X[~X.isna().any(axis=1)]
 
         for poi in self.poi_list:
             dist_col = poi + "Distance"

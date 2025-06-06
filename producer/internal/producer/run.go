@@ -31,7 +31,6 @@ func Run(conf *config.Config) {
 
 	log.Info("broker channel opened")
 
-
 	jsonData, err := json.Marshal(apartments)
 	if err != nil {
 		log.Panicf("failed to marshal apartments to JSON: %v", err)

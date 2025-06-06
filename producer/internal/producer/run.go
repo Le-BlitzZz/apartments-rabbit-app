@@ -44,8 +44,8 @@ func Run(conf *config.Config) {
 		false,
 		false,
 		amqp.Publishing{
-			ContentType: "application/json",
-			Body:        jsonData,
+			ContentType:  "application/json",
+			Body:         jsonData,
 			DeliveryMode: amqp.Persistent,
 		},
 	)
